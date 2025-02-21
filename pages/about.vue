@@ -7,17 +7,33 @@ const formattedName = computed({
         return name.value
     },
     set(value) {
-        return name.value = value.toLowerCase().replace(/\b\w\g/, c => c.toUpperCase())
+        return name.value = value.toLowerCase()
     }
 
 })
+
+// const count = ref(0);
+
+// const computedDataProp = computed({
+//     get() {
+//         return count.value; 
+//     },
+//     set(value) {
+//         count.value = value -2
+//     }
+// })
+
 </script>
 <template>
     <p>About Pages</p>
     <section>
+        <!-- <p>{{ count }}</p>
+        <p>{{ computedDataProp }}</p>
+        <input v-model="count">
+        <button @click="count++">Compute</button> -->
+
         <h2>Computed Getter & Setter</h2>
         <label>Full name</label>
         <input type="text" v-model="formattedName">
     </section>
-    <p>{{ name }}</p>
 </template>
