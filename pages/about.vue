@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 const name = ref('cb wg');
 const formattedName = computed({
@@ -12,6 +12,22 @@ const formattedName = computed({
 
 })
 
+const ngnAmount = ref();
+const usdAmount = ref();
+
+const fakerate = ref(1500);
+const fakeinverse = ref(0.00067);
+
+/*const roundusd = computed({
+    get() {
+        return usdAmount.value
+    }, 
+    set(value) {
+    const multiplier = Math.pow(10, 2 - Math.floor(Math.log10(Math.abs(value))) - 1);
+    Math.round(value * multiplier) / multiplier;
+    }
+}) */
+
 // const count = ref(0);
 
 // const computedDataProp = computed({
@@ -23,6 +39,16 @@ const formattedName = computed({
 //     }
 // })
 
+watch(ngnAmount, (newVal) => {
+    usdAmount.value = newVal * fakeinverse.value
+    console.log('naira value changed')
+})
+
+watch(usdAmount, (newVall) => {
+    ngnAmount.value = newVall * fakerate.value
+    console.log('usd value changed')
+})
+
 </script>
 <template>
     <p>About Pages</p>
@@ -33,7 +59,29 @@ const formattedName = computed({
         <button @click="count++">Compute</button> -->
 
         <h2>Computed Getter & Setter</h2>
-        <label>Full name</label>
-        <input type="text" v-model="formattedName">
+        <section class="converter">
+            <div class="input">
+                <label>NGN</label>
+                <input type="text" v-model="ngnAmount">
+            </div>
+            <div class="input">
+                <label>USD</label>
+                <input type="text" v-model="usdAmount">
+            </div>
+        </section>
+        <div class="rates">
+            <p>Inverse Rate: {{ fakeinverse }}</p>
+            <p>Rate: {{ fakerate }}</p>
+        </div>
     </section>
 </template>
+
+<style scoped>
+.converter {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid grey;
+    padding: 1.2rem;
+}
+</style>
