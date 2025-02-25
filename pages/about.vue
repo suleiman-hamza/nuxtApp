@@ -73,6 +73,9 @@ watch(usdAmount, (newVall) => {
             <p>Inverse Rate: {{ fakeinverse }}</p>
             <p>Rate: {{ fakerate }}</p>
         </div>
+        <div class="nav-bar">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil reiciendis, eum qui necessitatibus sed excepturi ut quam! Cum facilis sint voluptatibus. Dignissimos repellendus consequuntur rem ut aperiam aut ex nihil?</p>
+        </div>
     </section>
 </template>
 

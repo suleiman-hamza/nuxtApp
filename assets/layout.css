@@ -1,0 +1,13 @@
+.nav-bar {
+    border: 2px solid red;
+    padding: 1rem;
+}
+
+.navigation-container {
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 2px solid blue;
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+}
