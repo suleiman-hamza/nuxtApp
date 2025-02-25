@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, shallowRef } from 'vue';
 
 const name = ref('cb wg');
 const formattedName = computed({
@@ -12,11 +12,43 @@ const formattedName = computed({
 
 })
 
-const ngnAmount = ref();
-const usdAmount = ref();
+const ngnAmount: Ref<number> = shallowRef(0);
+const usdAmount: Ref<number> = shallowRef(0);
 
 const fakerate = ref(1500);
 const fakeinverse = ref(0.00067);
+
+function clearInput() {
+    ngnAmount.value = 0;
+    usdAmount.value = 0;
+}
+
+const nairaToUSD = computed(()=> {
+    return ngnAmount.value * fakeinverse.value
+})
+
+const usdToNaira = computed(()=> {
+    return usdAmount.value / fakeinverse.value
+    // return (usdAmount.value / fakeinverse.value).toFixed(2)
+})
+
+watch(ngnAmount, (newValue)=> {
+    if(newValue !== '' && !isNaN(newValue)) {
+        usdAmount.value = nairaToUSD.value
+    } else {
+        usdAmount.value = 0;
+    }
+})
+
+watch(usdAmount, (newValue) => {
+    if(newValue !== '' && !isNaN(newValue)) {
+        ngnAmount.value = usdToNaira.value
+    } else {
+        ngnAmount.value = 0;
+    }
+})
+
+
 
 /*const roundusd = computed({
     get() {
@@ -39,17 +71,17 @@ const fakeinverse = ref(0.00067);
 //     }
 // })
 
-watch(ngnAmount, (newVal) => {
-    usdAmount.value = newVal * fakeinverse.value
-    console.log('naira value changed')
-})
+// watchEffect(() => {
+//     ngnAmount.value = usdAmount.value * fakerate.value
+//     console.log(ngnAmount.value);
+// })
 
-watch(usdAmount, (newVall) => {
-    ngnAmount.value = newVall * fakerate.value
-    console.log('usd value changed')
-})
-
+// watchEffect(() => {
+//     usdAmount.value = ngnAmount.value * fakeinverse.value
+//     console.log(usdAmount.value);
+// })
 </script>
+
 <template>
     <p>About Pages</p>
     <section>
@@ -62,13 +94,14 @@ watch(usdAmount, (newVall) => {
         <section class="converter">
             <div class="input">
                 <label>NGN</label>
-                <input type="text" v-model="ngnAmount">
+                <input type="text" v-model.number="ngnAmount">
             </div>
             <div class="input">
                 <label>USD</label>
-                <input type="text" v-model="usdAmount">
+                <input type="text" v-model.number="usdAmount">
             </div>
         </section>
+        <button @click="clearInput">Clear</button>
         <div class="rates">
             <p>Inverse Rate: {{ fakeinverse }}</p>
             <p>Rate: {{ fakerate }}</p>
