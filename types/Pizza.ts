@@ -1,3 +1,4 @@
+// exported type for the pizza object
 export type Pizza = {
     id: string,
     title: string,

@@ -1,7 +1,19 @@
 <script lang="ts">
-import type { Pizza } from "~/types/Pizza";
-import type { Ref } from "vue";
+import type { Pizza } from "~/types/Pizza"; // import pizza typed in types folder
+import type { Ref } from "vue"; // type-Ref coz our composable returns an obj that's a ref
 import { ref } from "vue";
+
+//This is what this composable function returns
+// {
+//     pizzas: {
+//         id: number,
+//         title: string,
+//         price: string,
+//         desc: string,
+//         img: string,
+//         quantity: number
+//     }
+// }
 
 export function usePizzas() : { pizzas: Ref<Pizza[]> } {
     return {
