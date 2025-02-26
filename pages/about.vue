@@ -33,7 +33,7 @@ const usdToNaira = computed(()=> {
 })
 
 watch(ngnAmount, (newValue)=> {
-    if(newValue !== '' && !isNaN(newValue)) {
+    if(!isNaN(newValue)) {
         usdAmount.value = nairaToUSD.value
     } else {
         usdAmount.value = 0;
@@ -41,7 +41,8 @@ watch(ngnAmount, (newValue)=> {
 })
 
 watch(usdAmount, (newValue) => {
-    if(newValue !== '' && !isNaN(newValue)) {
+    if(!isNaN(newValue)) {
+    // if(newValue !== '' && !isNaN(newValue)) { replace later
         ngnAmount.value = usdToNaira.value
     } else {
         ngnAmount.value = 0;

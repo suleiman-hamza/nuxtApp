@@ -5,10 +5,8 @@
 <template>
     <nav class="nav-bar">
         <ul class="navigation-container">
-            <li>BasketBall</li>
-            <li>Biking</li>
-            <li>Table Tennis</li>
-            <li>F1 motorsport</li>
+            <nuxt-link to="/">Home</nuxt-link>
+            <nuxt-link to="/pizzas">Pizzas</nuxt-link>
         </ul>
     </nav>
     <slot />
