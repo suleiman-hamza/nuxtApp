@@ -1,86 +1,73 @@
 <script lang="ts" setup>
-import { ref, computed, watch, shallowRef } from 'vue';
+import { ref, computed, watch } from 'vue';
 
-const name = ref('cb wg');
-const formattedName = computed({
-    get() {
-        return name.value
-    },
-    set(value) {
-        return name.value = value.toLowerCase()
-    }
+const ngnAmount = ref('0');
+const usdAmount = ref('0');
 
-})
-
-const ngnAmount: Ref<number> = shallowRef(0);
-const usdAmount: Ref<number> = shallowRef(0);
+const setNgnAmount = ref('0');
+const setUsdAmount = ref('0');
 
 const fakerate = ref(1500);
 const fakeinverse = ref(0.00067);
 
 function clearInput() {
-    ngnAmount.value = 0;
-    usdAmount.value = 0;
+    usdAmount.value = '0';
+    ngnAmount.value = '0';
+    console.log('do something please')
 }
 
-const nairaToUSD = computed(()=> {
-    return ngnAmount.value * fakeinverse.value
-})
+// remove @input event listener for v-model later
 
-const usdToNaira = computed(()=> {
-    return usdAmount.value / fakeinverse.value
-    // return (usdAmount.value / fakeinverse.value).toFixed(2)
-})
+function isZeroValue(value: string) {
+    return value.length === 2 && value[0] === '0' && value[1] !== '.'
+}
 
-watch(ngnAmount, (newValue)=> {
-    if(!isNaN(newValue)) {
-        usdAmount.value = nairaToUSD.value
+function convertLocalizedCurrencyfromNgn(value: string) {
+    if(isZeroValue(value)) {
+        setNgnAmount.value = value[1]
     } else {
-        usdAmount.value = 0;
+        setNgnAmount.value = value
     }
-})
 
-watch(usdAmount, (newValue) => {
-    if(!isNaN(newValue)) {
-    // if(newValue !== '' && !isNaN(newValue)) { replace later
-        ngnAmount.value = usdToNaira.value
+    const parsedNgn = parseFloat(value);
+    const nggn = parsedNgn * fakeinverse.value
+
+    if(nggn === 0) {
+        setUsdAmount.value = 0; 
     } else {
-        ngnAmount.value = 0;
+        setUsdAmount.value = nggn.toFixed(2)
     }
-})
+    console.log(nggn)
+    console.log(setUsdAmount.value)
+}
 
-
-
-/*const roundusd = computed({
-    get() {
-        return usdAmount.value
-    }, 
-    set(value) {
-    const multiplier = Math.pow(10, 2 - Math.floor(Math.log10(Math.abs(value))) - 1);
-    Math.round(value * multiplier) / multiplier;
+function convertNgnfromLocalizedCurrency(value: string) {
+    if(isZeroValue(value)) {
+        setUsdAmount.value = value[1]
+    } else {
+        setUsdAmount.value = value
     }
-}) */
 
-// const count = ref(0);
+    const parsedUsd = parseFloat(value);
+    const ussd = parsedUsd / fakeinverse.value
 
-// const computedDataProp = computed({
-//     get() {
-//         return count.value; 
-//     },
-//     set(value) {
-//         count.value = value -2
-//     }
+    if(ussd === 0) {
+        setNgnAmount.value = 0; 
+    } else {
+        setNgnAmount.value = ussd.toFixed(2)
+    }
+    console.log(ussd)
+    console.log(ngnAmount.value)
+}
+
+// watch(usdAmount, (newValue: string) => {
+//     convertNgnfromLocalizedCurrency(newValue); 
 // })
 
-// watchEffect(() => {
-//     ngnAmount.value = usdAmount.value * fakerate.value
-//     console.log(ngnAmount.value);
+// watch(ngnAmount, (newValue: string) => {
+//     convertLocalizedCurrencyfromNgn(newValue);
 // })
 
-// watchEffect(() => {
-//     usdAmount.value = ngnAmount.value * fakeinverse.value
-//     console.log(usdAmount.value);
-// })
 </script>
 
 <template>
@@ -95,11 +82,17 @@ watch(usdAmount, (newValue) => {
         <section class="converter">
             <div class="input">
                 <label>NGN</label>
-                <input type="text" v-model.number="ngnAmount">
+                <input type="text" @input="(e)=> {
+                    const value = e.target.value;
+                    convertLocalizedCurrencyfromNgn(value)
+                }" ref="ngnRef" autofocus>
             </div>
             <div class="input">
                 <label>USD</label>
-                <input type="text" v-model.number="usdAmount">
+                <input type="text" @input="(e) => {
+                    const value = e.target.value;
+                    convertNgnfromLocalizedCurrency(value)
+                }" ref="usdRef">
             </div>
         </section>
         <button @click="clearInput">Clear</button>
@@ -120,5 +113,10 @@ watch(usdAmount, (newValue) => {
     gap: 1rem;
     border: 1px solid grey;
     padding: 1.2rem;
+}
+.input input {
+    padding: 1rem;
+    width: 100px;
+    font-size: 1.2rem;
 }
 </style>

@@ -7,6 +7,7 @@
         <ul class="navigation-container">
             <nuxt-link to="/">Home</nuxt-link>
             <nuxt-link to="/pizzas">Pizzas</nuxt-link>
+            <nuxt-link to="/about">Converter</nuxt-link>
         </ul>
     </nav>
     <slot />
