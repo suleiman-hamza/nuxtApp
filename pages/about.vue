@@ -4,8 +4,8 @@ import { ref, computed, watch } from 'vue';
 const ngnAmount = ref(0);
 const usdAmount = ref(0);
 
-// const setNgnAmount = ref(0);
-// const setUsdAmount = ref(0);
+const setNgnAmount = ref(0);
+const setUsdAmount = ref(0);
 
 const fakerate = ref(1500);
 const fakeinverse = ref(0.00067);
@@ -19,20 +19,32 @@ function clearInput() {
 //     return value.length === 2 && value[0] === '0' && value[1] !== '.'
 // }
 
+
+// when naira changes
 function convertLocalizedCurrencyfromNgn(value: number) {
-    return usdAmount.value = value * fakeinverse.value
+    console.log(`NGN-AMOUNT BEFORE CONVRT FUNC RUNS == ${ngnAmount.value}`)
+    setUsdAmount.value = value / fakerate.value
+    console.log(`USD VAKUE OF CONVERSION WITH RATE == ${setUsdAmount.value}`)
+    console.log(`Current value is ${setUsdAmount.value} = value - ${value} * rate - ${fakeinverse.value}`)
+    return setUsdAmount.value.toFixed(2)
 }
 
+// when dollar changes
 function convertNgnfromLocalizedCurrency(value: number) {
-    return ngnAmount.value = value / fakeinverse.value
+    console.log(`USD-AMOUNT BEFORE CONVRT FUNC RUNS == ${usdAmount.value}`)
+    setNgnAmount.value = value / fakeinverse.value
+    console.log(`NGN VAlUE OF CONVERSION WITH RATE == ${setNgnAmount.value}`)
+    console.log(`Current value is ${setNgnAmount.value} = value - ${value} * rate - ${fakeinverse.value}`)
+    console.log(`USD-AMOUNT After CONVeRT FUNC RUNS == ${usdAmount.value}`)
+    return setNgnAmount.value.toFixed(2)
 }
 
 watch(usdAmount, (newValue) => {
-    convertNgnfromLocalizedCurrency(newValue)
+    ngnAmount.value = parseFloat(convertNgnfromLocalizedCurrency(newValue))
 })
 
 watch(ngnAmount, (newValue) => {
-    convertLocalizedCurrencyfromNgn(newValue)
+    usdAmount.value = parseFloat(convertLocalizedCurrencyfromNgn(newValue))
 })
 
 </script>
@@ -44,11 +56,11 @@ watch(ngnAmount, (newValue) => {
         <section class="converter">
             <div class="input">
                 <label>NGN</label>
-                <input type="text" v-model.number="ngnAmount" ref="ngnRef" autofocus>
+                <input type="number" v-model="ngnAmount" ref="ngnRef" autofocus>
             </div>
             <div class="input">
                 <label>USD</label>
-                <input type="text" v-model.number="usdAmount" ref="usdRef">
+                <input type="number" v-model="usdAmount" ref="usdRef">
             </div>
         </section>
         <button @click="clearInput">Clear</button>
