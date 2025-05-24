@@ -1,18 +1,19 @@
 <script lang="ts" setup>
 import { ref, computed, watch } from 'vue';
 
-const ngnAmount = ref(0);
-const usdAmount = ref(0);
+const ngnAmount = ref('');
+const usdAmount = ref('');
 
 const setNgnAmount = ref(0);
 const setUsdAmount = ref(0);
 
 const fakerate = ref(1500);
 const fakeinverse = ref(0.00067);
+const ngnRef = ref<null>(null)
 
 function clearInput() {
-    usdAmount.value = 0;
-    ngnAmount.value = 0;
+    usdAmount.value = '0';
+    ngnAmount.value = '0';
 }
 
 // function isZeroValue(value: number) {
@@ -21,31 +22,46 @@ function clearInput() {
 
 
 // when naira changes
-function convertLocalizedCurrencyfromNgn(value: number) {
+function convertLocalizedCurrencyfromNgn(value: string) {
     console.log(`NGN-AMOUNT BEFORE CONVRT FUNC RUNS == ${ngnAmount.value}`)
-    setUsdAmount.value = value / fakerate.value
-    console.log(`USD VAKUE OF CONVERSION WITH RATE == ${setUsdAmount.value}`)
-    console.log(`Current value is ${setUsdAmount.value} = value - ${value} * rate - ${fakeinverse.value}`)
-    return setUsdAmount.value.toFixed(2)
+    setUsdAmount.value = parseFloat(value) / fakerate.value
+    console.log(setUsdAmount.value)
+   return setUsdAmount.value.toFixed(2)
 }
 
 // when dollar changes
-function convertNgnfromLocalizedCurrency(value: number) {
+function convertNgnfromLocalizedCurrency(value: string) {
     console.log(`USD-AMOUNT BEFORE CONVRT FUNC RUNS == ${usdAmount.value}`)
-    setNgnAmount.value = value / fakeinverse.value
-    console.log(`NGN VAlUE OF CONVERSION WITH RATE == ${setNgnAmount.value}`)
-    console.log(`Current value is ${setNgnAmount.value} = value - ${value} * rate - ${fakeinverse.value}`)
-    console.log(`USD-AMOUNT After CONVeRT FUNC RUNS == ${usdAmount.value}`)
+    setNgnAmount.value = parseFloat(value) / fakeinverse.value
+    console.log(setNgnAmount.value)
     return setNgnAmount.value.toFixed(2)
 }
 
-watch(usdAmount, (newValue) => {
-    ngnAmount.value = parseFloat(convertNgnfromLocalizedCurrency(newValue))
+// watch(usdAmount, (newValue) => {
+//     ngnAmount.value = convertNgnfromLocalizedCurrency(newValue)
+// })
+
+// ngnval 
+const ngnval = computed({
+    get() {
+        return  usdAmount.value 
+    },
+    set(value) {
+        ngnAmount.value = convertNgnfromLocalizedCurrency(value)
+    }
 })
 
-watch(ngnAmount, (newValue) => {
-    usdAmount.value = parseFloat(convertLocalizedCurrencyfromNgn(newValue))
+const usdval = computed({
+    get() {
+        return  ngnAmount.value 
+    },
+    set(value) {
+        usdAmount.value = convertLocalizedCurrencyfromNgn(value)
+    }
 })
+//watch(ngnAmount, (newValue) => {
+//    usdAmount.value = convertLocalizedCurrencyfromNgn(newValue)
+//})
 
 </script>
 
@@ -56,14 +72,16 @@ watch(ngnAmount, (newValue) => {
         <section class="converter">
             <div class="input">
                 <label>NGN</label>
-                <input type="number" v-model="ngnAmount" ref="ngnRef" autofocus>
+                <input type="text" v-model="ngnAmount" ref="ngnRef" autofocus>
             </div>
             <div class="input">
                 <label>USD</label>
-                <input type="number" v-model="usdAmount" ref="usdRef">
+                <input type="text" v-model="usdAmount" ref="usdRef">
             </div>
         </section>
         <button @click="clearInput">Clear</button>
+        <p>Ngn: {{ ngnval }}</p>
+        <p>Usd: {{ usdval }}</p>
         <div class="rates">
             <p>Inverse Rate: {{ fakeinverse }}</p>
             <p>Rate: {{ fakerate }}</p>
