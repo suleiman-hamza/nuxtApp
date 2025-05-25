@@ -1,21 +1,11 @@
 <script setup lang="ts">
-// import '~/assets/layout.css'
 </script>
 
 <template>
-    <nav class="nav-bar">
-        <ul class="navigation-container">
-            <nuxt-link to="/">Home</nuxt-link>
-            <nuxt-link to="/pizzas">Pizzas</nuxt-link>
-            <nuxt-link to="/about">Converter</nuxt-link>
-        </ul>
-    </nav>
+    <Header />
     <slot />
-    <footer>
-        <p>The Footer</p>
-    </footer>
+    <Footer />
 </template>
 
 <style scoped>
-@import url('~/assets/layout.css');
 </style>
