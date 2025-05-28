@@ -1,5 +1,6 @@
 <script setup >
 import { motion } from "motion-v"
+import SvgtextTest1 from "~/components/SvgtextTest1.vue"
 definePageMeta({
     layout: "folio"
 })
@@ -54,6 +55,7 @@ const drawling = {
     };
   }
 };
+
 </script>
 
 <template>
@@ -83,6 +85,8 @@ const drawling = {
         </div>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur eaque eum exercitationem quia et facilis quisquam nostrum similique autem officia optio ab eius suscipit qui voluptas, dolorum aut non? Quis possimus ex sequi corrupti ratione qui itaque vero provident quos ducimus! Exercitationem doloribus officiis illum, quod temporibus repudiandae est nesciunt alias architecto. Doloremque quae sequi veniam architecto sunt ullam laboriosam. Ipsa velit pariatur iste eligendi consectetur enim officiis aperiam adipisci optio nisi laudantium fuga sint distinctio doloribus, totam repellat beatae qui exercitationem modi dolorum deleniti culpa facere. Explicabo porro officiis, fugit sint asperiores dolor aspernatur rerum laboriosam mollitia saepe eveniet maiores reprehenderit esse expedita, nemo impedit harum. Ad commodi saepe dolorum ipsa, hic ullam dicta, qui doloribus, aperiam eligendi est quo fuga. Dignissimos sit quia suscipit, voluptatibus possimus rem ratione rerum perferendis laboriosam temporibus soluta aperiam molestias ut laudantium. Sunt, quibusdam nam vero odit tempore consectetur voluptas nisi dolorem temporibus cum explicabo omnis ea recusandae voluptate! Eum officiis molestias numquam, magnam quasi necessitatibus voluptatibus modi odio placeat cum eveniet nemo fugiat repellendus fuga possimus dolorem similique veritatis ex voluptates. Repellat modi beatae deleniti impedit officiis sit iure optio, ex animi distinctio repellendus neque architecto, necessitatibus suscipit nam qui dolorem. Ratione.</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas molestias voluptatum qui? Non ab eum iure nisi delectus inventore sunt cupiditate magni libero corrupti ad quo dolores culpa accusamus facilis dolorum nesciunt, eveniet hic obcaecati aliquam aspernatur deserunt est dignissimos ex. Facere neque molestiae earum ad hic minima reiciendis explicabo, magni maxime qui repellendus eius veritatis iusto non laboriosam, dolorum temporibus dolore. Sapiente, et laboriosam odit delectus veritatis dolore ullam atque aliquid magni facilis nobis! Cupiditate totam ullam, porro molestias harum sed consequatur rerum esse aut quibusdam, maxime sapiente error distinctio ipsum quam sunt inventore aliquid dolore dignissimos id minus quidem. Tempora quae architecto numquam itaque dolores eveniet non, sequi reprehenderit earum modi nam temporibus. Illo, fugiat deleniti. Qui, eius ea repudiandae tempora voluptatibus natus quos, fugit non distinctio provident quam eligendi soluta maiores. Beatae, nulla exercitationem quae quisquam rerum voluptates voluptas, labore maxime minima quasi laboriosam ipsam fugiat accusamus repudiandae aperiam dicta nesciunt tempore corrupti odit voluptate deleniti ducimus a aliquam. Temporibus quasi molestias nihil quibusdam quae, aspernatur saepe perferendis, soluta eaque placeat exercitationem possimus voluptates in doloremque molestiae hic illo mollitia autem. Dolores, omnis illum? Nihil, repudiandae eaque ut magni optio modi. Adipisci earum quae iure quis. Dignissimos.</p>
+        <SvgtextTest1 />
+        <SvgtextTest2 />
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas molestias voluptatum qui? Non ab eum iure nisi delectus inventore sunt cupiditate magni libero corrupti ad quo dolores culpa accusamus facilis dolorum nesciunt, eveniet hic obcaecati aliquam aspernatur deserunt est dignissimos ex. Facere neque molestiae earum ad hic minima reiciendis explicabo, magni maxime qui repellendus eius veritatis iusto non laboriosam, dolorum temporibus dolore. Sapiente, et laboriosam odit delectus veritatis dolore ullam atque aliquid magni facilis nobis! Cupiditate totam ullam, porro molestias harum sed consequatur rerum esse aut quibusdam, maxime sapiente error distinctio ipsum quam sunt inventore aliquid dolore dignissimos id minus quidem. Tempora quae architecto numquam itaque dolores eveniet non, sequi reprehenderit earum modi nam temporibus. Illo, fugiat deleniti. Qui, eius ea repudiandae tempora voluptatibus natus quos, fugit non distinctio provident quam eligendi soluta maiores. Beatae, nulla exercitationem quae quisquam rerum voluptates voluptas, labore maxime minima quasi laboriosam ipsam fugiat accusamus repudiandae aperiam dicta nesciunt tempore corrupti odit voluptate deleniti ducimus a aliquam. Temporibus quasi molestias nihil quibusdam quae, aspernatur saepe perferendis, soluta eaque placeat exercitationem possimus voluptates in doloremque molestiae hic illo mollitia autem. Dolores, omnis illum? Nihil, repudiandae eaque ut magni optio modi. Adipisci earum quae iure quis. Dignissimos.</p>
         <motion.div
             class="box mb-4"
@@ -228,6 +232,7 @@ const drawling = {
     />
   </motion.svg>
         </section>
+        <img src="/public/Images/SULEIMAN HAMZA..svg" alt="">
     </section>
 </template>
 
@@ -237,5 +242,10 @@ const drawling = {
     height: 100px;
     background-color: #0cdcf7;
     border-radius: 5px;
+}
+.contain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
