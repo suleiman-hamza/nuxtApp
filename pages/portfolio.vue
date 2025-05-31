@@ -238,6 +238,11 @@ const drawling = {
             button
           </CrossedDiv>
         </section>
+        <section>
+          <CrossedDiv as="div" class="hover:bg-black hover:text-white">
+            Span
+          </CrossedDiv>
+        </section>
     </section>
 </template>
 
