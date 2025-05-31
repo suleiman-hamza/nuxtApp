@@ -233,6 +233,11 @@ const drawling = {
   </motion.svg>
         </section>
         <img src="/public/Images/SULEIMAN HAMZA..svg" alt="">
+        <section class="p-2">
+          <CrossedDiv as="button" class="hover:bg-black hover:text-white">
+            button
+          </CrossedDiv>
+        </section>
     </section>
 </template>
 
