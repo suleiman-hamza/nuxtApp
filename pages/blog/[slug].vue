@@ -1,0 +1,13 @@
+<script setup lang="ts">
+const route = useRoute();
+const { data: page } = await useAsyncData(route.path, () => {
+  return queryCollection('blog').path(route.path).first()
+})
+</script>
+
+<template>
+  <div class="p-4">
+    <ContentRenderer v-if="page" :value="page" class="prose max-w-none" />
+    <div v-else>Page not found</div>
+  </div>
+</template>
