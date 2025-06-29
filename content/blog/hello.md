@@ -1,10 +1,10 @@
 ---
-title: "Hello World Article Heloo"
+title: "Installing Nuxt"
 description: "The fisrt articke in my blog"
 slug: "Hello world getting started"
 ---
 
-# Getting Started
+# Let's Install Nuxt
 
 some random article paragraph
 
